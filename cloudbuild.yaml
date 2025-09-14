@@ -1,0 +1,31 @@
+steps:
+  # Build backend image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/realcoderzdemo/weather-backend'
+      - './backend'
+
+  # Push image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/realcoderzdemo/weather-backend'
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'weather-backend',
+        '--image', 'gcr.io/realcoderzdemo/weather-backend',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--port', '8080',
+        '--update-env-vars', 'OPENWEATHER_API_KEY=db8a875955e52f45f5fe583e27798f59'
+      ]
+
+images:
+  - 'gcr.io/realcoderzdemo/weather-backend'
