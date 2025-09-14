@@ -4,22 +4,22 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/realcoderzdemo/weather-backend'
-      
+      - 'gcr.io/realcoderzdemo/weather-backend:latest'
+      - '.'
 
   # Push image
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/realcoderzdemo/weather-backend'
+      - 'gcr.io/realcoderzdemo/weather-backend:latest'
 
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       [
-        'run', 'deploy', 'weather-backend',
-        '--image', 'gcr.io/realcoderzdemo/weather-backend',
+        'run', 'deploy', 'demo-weather-backend',
+        '--image', 'gcr.io/realcoderzdemo/weather-backend:latest',
         '--region', 'us-central1',
         '--platform', 'managed',
         '--allow-unauthenticated',
@@ -28,7 +28,7 @@ steps:
       ]
 
 images:
-  - 'gcr.io/realcoderzdemo/weather-backend'
+  - 'gcr.io/realcoderzdemo/weather-backend:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
