@@ -29,3 +29,6 @@ steps:
 
 images:
   - 'gcr.io/realcoderzdemo/weather-backend'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
