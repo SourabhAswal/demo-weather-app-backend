@@ -5,7 +5,7 @@ steps:
       - 'build'
       - '-t'
       - 'gcr.io/realcoderzdemo/weather-backend'
-      - './backend'
+      
 
   # Push image
   - name: 'gcr.io/cloud-builders/docker'
